@@ -1,0 +1,26 @@
+{
+  "name": "unified-bank-utils",
+  "version": "0.1.0",
+  "description": "TODO",
+  "main": "src/unified-bank-utils.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fohlin/unified-bank-utils.git"
+  },
+  "author": {
+    "name": "Fredrik Ohlin",
+    "email": "fohlin@gmail.com",
+    "url": "https://github.com/fohlin"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fohlin/unified-bank-utils/issues"
+  },
+  "homepage": "https://github.com/fohlin/unified-bank-utils#readme",
+  "devDependencies": {
+    "eslint": "^4.5.0"
+  }
+}
