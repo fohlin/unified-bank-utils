@@ -4,9 +4,31 @@ A unified API for looking up and validating bank account details. There are a
 lot of initiatives in this space, and a goal of this project is to provide
 curated and simple-as-possible use.
 
-## Current support
+## Usage
 
-* Sweden (SE) is the first locale to be supported.
+Sweden (SE) is the first locale to be supported.
+
+```js
+var BankUtils = require('unified-bank-utils');
+// Get a bank account object from clearing and account numbers:
+var account = BankUtils.SE.account('9252', '0782455');
+
+// Then do stuff like
+account.validateClearingNumber() // true
+account.bankName // 'SBAB'
+account.validateAccountNumber() // true - valid for this bank
+account.isValid() // true - since both of the above are true
+
+// You can also access some functions without going through an account object
+BankUtils.SE.getBankName('5177') // 'SEB'
+BankUtils.SE.getBankName('8299-0') // 'Swedbank'
+```
+
+## Tests
+
+```
+npm test
+```
 
 ## Acknowledgements
 
@@ -25,9 +47,3 @@ Related projects:
 * SE: [jelveby/bankverify](https://github.com/jelveby/bankverify)
 * UK: [franciscocardoso/uk-modulus-checking](https://github.com/uphold/uk-modulus-checking)
 * US: [braintree/us-bank-account-validator](https://github.com/braintree/us-bank-account-validator)
-
-## Tests
-
-```
-npm test
-```
