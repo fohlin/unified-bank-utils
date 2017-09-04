@@ -3,6 +3,24 @@ var CN = require('clearingnummer');
 var SE = require('../src/swedish-bank-utils.js');
 var ACC = require('../src/swedish-account-formats.js');
 
+var testAccounts = [
+  {'clearing': '6189', 'account': '834435918', 'bank': 'Handelsbanken'},
+  {'clearing': '9420', 'account': '4172385', 'bank': 'Forex Bank'},
+  {'clearing': '5177', 'account': '0278249', 'bank': 'SEB'},
+  {'clearing': '9252', 'account': '0782455', 'bank': 'SBAB'},
+  {'clearing': '82990', 'account': '2814958514', 'bank': 'Swedbank'},
+  {'clearing': '8299-0', 'account': '2814958514', 'bank': 'Swedbank'},
+  {'clearing': '9550', 'account': '6724278', 'bank': 'Avanza Bank'},
+  {'clearing': '9020', 'account': '6886413', 'bank': 'Länsförsäkringar Bank'},
+  {'clearing': '4051', 'account': '0071917', 'bank': 'Nordea'}
+];
+var invalidTestAccounts = [
+  {'clearing': '8299-0', 'account': '281495851', 'bank': 'Swedbank'},
+  {'clearing': '902', 'account': '6886413', 'bank': 'Länsförsäkringar Bank'},
+  {'clearing': '4051', 'account': '00716917', 'bank': 'Nordea'},
+  {'clearing': '4051', 'account': '00716917u', 'bank': 'Nordea'}
+];
+
 test('SE: Clearing number lookup and validation', function (t) {
   t.equals(SE.getBankName(9270), 'ICA Banken', 'Clearing 9270 is ICA Banken');
 
@@ -39,15 +57,23 @@ test('SE: Account number validation format should correspond to a bank that can 
   }
 );
 
-/*
-test('SE: Bank name from clearing number should correspond to an account number validation format', function (t) {
-  var l = [];
-  CN.allBanks().forEach(function (cBank) {
-    l = ACC.filter(function (aBank) {
-      return aBank.name == cBank;
-    });
-    t.assert(l.length > 0, cBank + ': has known account format');
+test('SE: Validation of test accounts', function (t) {
+  testAccounts.forEach(function (testData) {
+    var a = SE.account(testData.clearing, testData.account);
+    t.equals(a.clearingNumber, testData.clearing, 'Clearing is correct');
+    t.equals(a.accountNumber, testData.account, 'Account number is correct');
+    t.assert(a.validateClearingNumber, a.clearingNumber + ' is valid clearing number');
+    t.equals(a.bank, testData.bankName, 'Bank from clearing number is actually correct');
+    t.assert(a.isValid(), 'Overall validation correct');
+    t.assert(a.validateAccountNumber(), a.accountNumber + ' is valid account number for ' + a.bankName);
   });
   t.end();
 });
-*/
+
+test('SE: Invalid accounts should be invalid', function (t) {
+  invalidTestAccounts.forEach(function (testData) {
+    var a = SE.account(testData.clearing, testData.account);
+    t.assert(!a.isValid(), a.unifiedAccountString() + ' should be invalid account');
+  });
+  t.end();
+});

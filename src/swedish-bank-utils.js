@@ -1,17 +1,18 @@
 var CN = require('clearingnummer');
+var accountFormats = require('../src/swedish-account-formats.js');
 
 /**
- * Main set of features for the Swedish locale.
- */
+* Main set of features for the Swedish locale.
+*/
 var SwedishBankUtils = {};
 /**
- * Looks up and returns the bank that corresponds to the supplied clearing number.
- * Tries to normalize the clearing number when passed as a string. This means that
- * `82990`, `'8299-0'` and `8299 0` will all be valid, although four digit
- * clearing numbers are the most common.
- * @param  {number|string} clearingNumber
- * @return {string} - name of corresponding bank, empty if no match
- */
+* Looks up and returns the bank that corresponds to the supplied clearing number.
+* Tries to normalize the clearing number when passed as a string. This means that
+* `82990`, `'8299-0'` and `8299 0` will all be valid, although four digit
+* clearing numbers are the most common.
+* @param  {number|string} clearingNumber
+* @return {string} - name of corresponding bank, empty if no match
+*/
 SwedishBankUtils.getBankName = function (clearingNumber) {
   var clearingStr = SwedishBankUtils.normalizeClearingNumber(clearingNumber);
   // For five-digit variants, clearingnummer.js requires hyphen between fourth
@@ -23,30 +24,57 @@ SwedishBankUtils.getBankName = function (clearingNumber) {
 };
 
 /**
- * @param  {number|string} clearingNumber
- * @return {string} - string of digit-only characters
- */
+* @param  {number|string} clearingNumber
+* @return {string} - string of digit-only characters
+*/
 SwedishBankUtils.normalizeClearingNumber = function (clearingNumber) {
   var clearingStr = clearingNumber + '';
   return clearingStr.replace(/\D+/, '');
 };
 
 /**
- * @param  {number|string} clearingNumber
- * @param  {number|string} accountNumber
- * @return {SwedishBankAccount}
- */
+* @param  {number|string} clearingNumber
+* @param  {number|string} accountNumber
+* @return {SwedishBankAccount}
+*/
 SwedishBankUtils.account = function (clearingNumber, accountNumber) {
   return new SwedishBankAccount(clearingNumber, accountNumber);
+};
+
+/**
+* @param {string} accountNumber 
+* @returns {boolean}
+*/
+SwedishBankUtils._mod10 = function (accountNumber) {
+  var len = accountNumber.length, bit = 1, sum = 0, val, arr = [0, 2, 4, 6, 8, 1, 3, 5, 7, 9];
+  while (len) {
+    val = parseInt(accountNumber.charAt(--len), 10);
+    sum += (bit ^= 1) ? arr[val] : val;
+  }
+  return sum && sum % 10 === 0;
+};
+
+/**
+* @param {string} accountNumber
+* @returns {boolean}
+*/
+SwedishBankUtils._mod11 = function (accountNumber) {
+  var len = accountNumber.length, sum = 0, val, weights = [1, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
+  var arr = weights.splice(weights.length-len, weights.length-(weights.length-len));
+  while (len) {
+    val = parseInt(accountNumber.charAt(--len), 10);
+    sum += arr[len] * val;
+  }
+  return sum && sum % 11 === 0;
 };
 
 /* --- */
 
 /**
- * Represents a single Swedish bank account.
- * @param {number|string} clearingNumber 
- * @param {number|string} accountNumber 
- */
+* Represents a single Swedish bank account.
+* @param {number|string} clearingNumber 
+* @param {number|string} accountNumber 
+*/
 var SwedishBankAccount = function (clearingNumber, accountNumber) {
   this.clearingNumber = clearingNumber;
   this.accountNumber = accountNumber;
@@ -54,18 +82,26 @@ var SwedishBankAccount = function (clearingNumber, accountNumber) {
 };
 
 /**
- * Checks if both clearing and account numbers are valid.
- * @return {boolean} - true if valid, otherwise false
- */
+* Joins clearing and account numbers as a single string.
+* @return {string}
+*/
+SwedishBankAccount.prototype.unifiedAccountString = function () {
+  return this.clearingNumber && this.accountNumber ? this.clearingNumber + this.accountNumber + '' : '';
+};
+
+/**
+* Checks if both clearing and account numbers are valid.
+* @return {boolean} - true if valid, otherwise false
+*/
 SwedishBankAccount.prototype.isValid = function () {
   this._isValid = this.validateClearingNumber() && this.validateAccountNumber();
   return this._isValid;
 };
 
 /**
- * Validates clearing number. If valid, the `bankName` property is also updated.
- * @return {boolean} - true if valid, otherwise false
- */
+* Validates clearing number. If valid, the `bankName` property is also updated.
+* @return {boolean} - true if valid, otherwise false
+*/
 SwedishBankAccount.prototype.validateClearingNumber = function () {
   if (this.clearingNumber) {
     var bankName = SwedishBankUtils.getBankName(this.clearingNumber);
@@ -77,30 +113,60 @@ SwedishBankAccount.prototype.validateClearingNumber = function () {
   return false;
 };
 
+/**
+* @return {boolean} - true if account number valid for this account's bank
+*/
 SwedishBankAccount.prototype.validateAccountNumber = function () {
   if (this.accountNumber) {
-    // TODO
+    if (this.validateClearingNumber()) {
+      // Get all known accountFormats that match this bank
+      var matching = accountFormats.filter(function (bank) {
+        if (bank.name == this.bankName) {
+          return true;
+        }
+      }, this);
+      // Try to validate for each matching account format.
+      // The account format also determines what parts of the clearing+account
+      // string should be used.
+      var cn, b, n = this.unifiedAccountString();
+      for(var i = 0; i < matching.length; i++) {
+        b = matching[i];
+        cn = n.substr(-b.lengths.control, b.lengths.control);
+        //console.log('Account: ' + this.clearingNumber + ' ' + this.accountNumber + '...Trying to match with mod: ' + matching[i].modulus);
+        if ((matching[i].modulus === 11 && SwedishBankUtils._mod11(cn))
+          || (matching[i].modulus === 10 && SwedishBankUtils._mod10(cn))) {
+          return true;
+        }
+      }
+    }
   }
   return false;
 };
 
 /**
- * TODO: Generates a standard-length string zeroes as middle padding between
- * clearing and account numbers.
- * @return {string} - empty if invalid account
- */
-SwedishBankAccount.prototype.generateFullAccountString = function () {
+* Tries to create a SwedishBankAccount object based on a string containing
+* both clearing and account numbers.
+* @param  {string} accountStr
+* @return {SwedishBankAccount}
+*/
+SwedishBankAccount.fromSingleString = function (accountStr) {
   // TODO
 };
 
 /**
- * Tries to create a SwedishBankAccount object based on a string containing
- * both clearing and account numbers.
- * @param  {string} accountStr
- * @return {SwedishBankAccount}
- */
-SwedishBankAccount.fromSingleString = function (accountStr) {
-  // TODO
-};
+* TODO: Generates PlusGiro-compatible account string
+* @return {string} - empty if invalid account
+*/
+// SwedishBankAccount.prototype.plusGiroString = function () {
+//   // TODO
+// };
+/**
+* TODO: Generates a Bankgiro-compatible account string
+* @return {string} - empty if invalid account
+*/
+// SwedishBankAccount.prototype.bankgiroString = function () {
+//   // TODO
+// };
+
 
 module.exports = SwedishBankUtils;
