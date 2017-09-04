@@ -1,7 +1,7 @@
 {
   "name": "unified-bank-utils",
   "version": "0.1.0",
-  "description": "TODO",
+  "description": "A unified API for looking up and validating bank account details.",
   "main": "src/unified-bank-utils.js",
   "scripts": {
     "test": "tap-prettify tests/*.js"
