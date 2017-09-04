@@ -4,7 +4,7 @@
   "description": "TODO",
   "main": "src/unified-bank-utils.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "tap-prettify tests/*.js"
   },
   "repository": {
     "type": "git",
@@ -21,6 +21,9 @@
   },
   "homepage": "https://github.com/fohlin/unified-bank-utils#readme",
   "devDependencies": {
-    "eslint": "^4.5.0"
+    "clearingnummer": "^0.4.3",
+    "eslint": "^4.5.0",
+    "tap-prettify": "0.0.2",
+    "tape": "^4.8.0"
   }
 }
