@@ -233,7 +233,7 @@ module.exports = [
     }
   },
   {
-    name: 'Nordea',
+    name: 'Nordea Personkonto',
     regex: /^(3300|3782)([0-9]{10})$/,
     modulus: 10,
     lengths: {

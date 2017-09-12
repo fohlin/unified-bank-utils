@@ -12,7 +12,8 @@ var testAccounts = [
   {'clearing': '8299-0', 'account': '2814958514', 'bank': 'Swedbank'},
   {'clearing': '9550', 'account': '6724278', 'bank': 'Avanza Bank'},
   {'clearing': '9020', 'account': '6886413', 'bank': 'Länsförsäkringar Bank'},
-  {'clearing': '4051', 'account': '0071917', 'bank': 'Nordea'}
+  {'clearing': '4051', 'account': '0071917', 'bank': 'Nordea'},
+  {'clearing': '3300', 'account': '8112189876', 'bank': 'Nordea Personkonto'}
 ];
 var invalidTestAccounts = [
   {'clearing': '8299-0', 'account': '281495851', 'bank': 'Swedbank'},
