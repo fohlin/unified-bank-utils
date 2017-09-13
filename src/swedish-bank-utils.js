@@ -25,20 +25,21 @@ SwedishBankUtils.getBankName = function (clearingNumber) {
 
 /**
 * @param  {number|string} clearingNumber
-* @return {string} - string of digit-only characters
+* @return {string} - clearing number string with spaces and hyphens removed
 */
 SwedishBankUtils.normalizeClearingNumber = function (clearingNumber) {
   var clearingStr = clearingNumber + '';
-  return clearingStr.replace(/\D+/, '');
+  return clearingStr.replace(/[- ]+/gi, '');
 };
 
 /**
 * @param  {number|string} clearingNumber
 * @param  {number|string} accountNumber
+* @param  {boolean} normalize - whether account object should store normalized data
 * @return {SwedishBankAccount}
 */
-SwedishBankUtils.account = function (clearingNumber, accountNumber) {
-  return new SwedishBankAccount(clearingNumber, accountNumber);
+SwedishBankUtils.account = function (clearingNumber, accountNumber, normalize = true) {
+  return new SwedishBankAccount(clearingNumber, accountNumber, normalize);
 };
 
 /**
@@ -74,9 +75,11 @@ SwedishBankUtils._mod11 = function (accountNumber) {
 * Represents a single Swedish bank account.
 * @param {number|string} clearingNumber 
 * @param {number|string} accountNumber 
+* @param {boolean} normalizeClearingNumber - whether clearing number should be stored normalized
+* 
 */
-var SwedishBankAccount = function (clearingNumber, accountNumber) {
-  this.clearingNumber = clearingNumber;
+var SwedishBankAccount = function (clearingNumber, accountNumber, normalizeClearingNumber = true) {
+  this.clearingNumber = normalizeClearingNumber ? SwedishBankUtils.normalizeClearingNumber(clearingNumber) : clearingNumber;
   this.accountNumber = accountNumber;
   this.bankName = '';
 };

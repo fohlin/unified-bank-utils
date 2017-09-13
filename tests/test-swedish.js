@@ -10,7 +10,10 @@ var testAccounts = [
   {'clearing': '9252', 'account': '0782455', 'bank': 'SBAB'},
   {'clearing': '82990', 'account': '2814958514', 'bank': 'Swedbank'},
   {'clearing': '8299-0', 'account': '2814958514', 'bank': 'Swedbank'},
+  {'clearing': '8299 0', 'account': '2814958514', 'bank': 'Swedbank'},
+  {'clearing': '82 99-0', 'account': '2814958514', 'bank': 'Swedbank'},
   {'clearing': '9550', 'account': '6724278', 'bank': 'Avanza Bank'},
+  {'clearing': '95 50', 'account': '6724278', 'bank': 'Avanza Bank'},
   {'clearing': '9020', 'account': '6886413', 'bank': 'Länsförsäkringar Bank'},
   {'clearing': '4051', 'account': '0071917', 'bank': 'Nordea'},
   {'clearing': '3300', 'account': '8112189876', 'bank': 'Nordea Personkonto'}
@@ -19,7 +22,8 @@ var invalidTestAccounts = [
   {'clearing': '8299-0', 'account': '281495851', 'bank': 'Swedbank'},
   {'clearing': '902', 'account': '6886413', 'bank': 'Länsförsäkringar Bank'},
   {'clearing': '4051', 'account': '00716917', 'bank': 'Nordea'},
-  {'clearing': '4051', 'account': '00716917u', 'bank': 'Nordea'}
+  {'clearing': '4051', 'account': '00716917u', 'bank': 'Nordea'},
+  {'clearing': '3300c', 'account': '8112189876', 'bank': 'Nordea Personkonto'}
 ];
 
 test('SE: Clearing number lookup and validation', function (t) {
@@ -47,6 +51,18 @@ test('SE: Invalid clearing numbers should be invalid', function (t) {
   t.end();
 });
 
+test('SE: Clearing number normalization', function (t) {
+  var re = /\D+/g;
+  testAccounts.forEach(function (testData) {
+    var c = testData.clearing + '';
+    t.equal(SE.normalizeClearingNumber(testData.clearing), c.replace(re, ''), testData.clearing + ' normalized correctly');
+
+    var a = SE.account(testData.clearing, testData.account, false);
+    t.equal(a.clearingNumber, testData.clearing, testData.clearing + ' - turning off normalization works');
+  });
+  t.end();
+});
+
 test('SE: Account number validation format should correspond to a bank that can be looked up from clearing number',
   function (t) {
     ACC.forEach(function (aBank) {
@@ -61,9 +77,9 @@ test('SE: Account number validation format should correspond to a bank that can 
 test('SE: Validation of test accounts', function (t) {
   testAccounts.forEach(function (testData) {
     var a = SE.account(testData.clearing, testData.account);
-    t.equals(a.clearingNumber, testData.clearing, 'Clearing is correct');
+    t.equals(a.clearingNumber, SE.normalizeClearingNumber(testData.clearing), 'Clearing is correct');
     t.equals(a.accountNumber, testData.account, 'Account number is correct');
-    t.assert(a.validateClearingNumber, a.clearingNumber + ' is valid clearing number');
+    t.assert(a.validateClearingNumber(), a.clearingNumber + ' is valid clearing number');
     t.equals(a.bank, testData.bankName, 'Bank from clearing number is actually correct');
     t.assert(a.isValid(), 'Overall validation correct');
     t.assert(a.validateAccountNumber(), a.accountNumber + ' is valid account number for ' + a.bankName);
