@@ -94,3 +94,15 @@ test('SE: Invalid accounts should be invalid', function (t) {
   });
   t.end();
 });
+
+test('SE: Get and match specific account pattern based on clearing number', function (t) {
+  testAccounts.forEach(function (testData) {
+    var acc = SE.account(testData.clearing, testData.account);
+    var formats = SE.getAccountNumberFormats(acc.clearingNumber);
+    t.assert(formats.length == 1, 'Found account format for ' + acc.clearingNumber);
+    formats.forEach(function (format) {
+      t.assert(acc.unifiedAccountString().match(format.re), acc.unifiedAccountString() + ' matches found account format');
+    });
+  });
+  t.end();
+});

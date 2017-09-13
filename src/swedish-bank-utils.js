@@ -33,6 +33,32 @@ SwedishBankUtils.normalizeClearingNumber = function (clearingNumber) {
 };
 
 /**
+ * Looks up account format objects (typically one). Objects look like this:
+ * {
+ *   name: String,
+ *   regex: RegExp,
+ *   modulus: Number,
+ *   lengths: {
+ *     clearing: Number,
+ *     account:  Number,
+ *     control:  Number
+ *   }
+ * }
+ * @param  {number|string} clearingNumber
+ * @return {array} - account format entries, typically 0 or 1 objects
+ */
+SwedishBankUtils.getAccountNumberFormats = function(clearingNumber) {
+  var matching = accountFormats.filter(function (format) {
+    var toMatch = clearingNumber + new Array(format.lengths.account + 1).join('0');
+    if(toMatch.match(format.regex)) {
+      return true;
+    }
+    return false;
+  });
+  return matching;
+};
+
+/**
 * @param  {number|string} clearingNumber
 * @param  {number|string} accountNumber
 * @param  {boolean} normalize - whether account object should store normalized data
