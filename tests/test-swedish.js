@@ -7,7 +7,7 @@ var testAccounts = [
   {'clearing': '6189', 'account': '834435918', 'bank': 'Handelsbanken'},
   {'clearing': '9420', 'account': '4172385', 'bank': 'Forex Bank'},
   {'clearing': '5177', 'account': '0278249', 'bank': 'SEB'},
-  {'clearing': '9252', 'account': '0782455', 'bank': 'SBAB'},
+  {'clearing': '9252', 'account': '0782455', 'bank': 'SBAB Bank'},
   {'clearing': '82990', 'account': '2814958514', 'bank': 'Swedbank'},
   {'clearing': '8299-0', 'account': '2814958514', 'bank': 'Swedbank'},
   {'clearing': '8299 0', 'account': '2814958514', 'bank': 'Swedbank'},
@@ -80,7 +80,7 @@ test('SE: Validation of test accounts', function (t) {
     t.equals(a.clearingNumber, SE.normalizeClearingNumber(testData.clearing), 'Clearing is correct');
     t.equals(a.accountNumber, testData.account, 'Account number is correct');
     t.assert(a.validateClearingNumber(), a.clearingNumber + ' is valid clearing number');
-    t.equals(a.bank, testData.bankName, 'Bank from clearing number is actually correct');
+    t.equals(a.bankName, testData.bank, 'Bank from clearing number is actually correct');
     t.assert(a.isValid(), 'Overall validation correct');
     t.assert(a.validateAccountNumber(), a.accountNumber + ' is valid account number for ' + a.bankName);
   });
