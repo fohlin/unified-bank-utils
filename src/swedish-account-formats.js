@@ -253,6 +253,16 @@ module.exports = [
     }
   },
   {
+    name: 'Nordea',
+    regex: /^(95[0-4][0-9]|996[0-9])([0-9]{10})$/,
+    modulus: 10,
+    lengths: {
+      clearing: 0,
+      account:  10,
+      control:  10
+    }
+  },
+  {
     name: 'Nordnet Bank',
     regex: /^(910[0-9])([0-9]{7})$/,
     modulus: 11,
