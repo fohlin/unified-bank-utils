@@ -4,9 +4,19 @@
         "node": true
     },
     "parserOptions": {
-        "sourceType": "module"
+        "sourceType": "module",
+        "ecmaVersion": 5,
+        "ecmaFeatures": {
+            "impliedStrict": true   
+        }
     },
-    "extends": "eslint:recommended",
+    "plugins": [
+        "es5"
+    ],
+    "extends": [
+        "eslint:recommended",
+        "plugin:es5/no-es2015"
+    ],
     "rules": {
         "indent": ["error", 2],
         "quotes": ["error", "single"],
