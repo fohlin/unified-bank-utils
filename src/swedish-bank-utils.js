@@ -64,7 +64,8 @@ SwedishBankUtils.getAccountNumberFormats = function(clearingNumber) {
 * @param  {boolean} normalize - whether account object should store normalized data
 * @return {SwedishBankAccount}
 */
-SwedishBankUtils.account = function (clearingNumber, accountNumber, normalize = true) {
+SwedishBankUtils.account = function (clearingNumber, accountNumber, normalize) {
+  normalize = normalize === undefined ? true : normalize;
   return new SwedishBankAccount(clearingNumber, accountNumber, normalize);
 };
 
@@ -104,7 +105,8 @@ SwedishBankUtils._mod11 = function (accountNumber) {
 * @param {boolean} normalizeClearingNumber - whether clearing number should be stored normalized
 * 
 */
-var SwedishBankAccount = function (clearingNumber, accountNumber, normalizeClearingNumber = true) {
+var SwedishBankAccount = function (clearingNumber, accountNumber, normalizeClearingNumber) {
+  normalizeClearingNumber = normalizeClearingNumber === undefined ? true : normalizeClearingNumber;
   this.clearingNumber = normalizeClearingNumber ? SwedishBankUtils.normalizeClearingNumber(clearingNumber) : clearingNumber;
   this.accountNumber = accountNumber;
   this.bankName = '';
