@@ -1,5 +1,5 @@
 var test = require('tape');
-var CN = require('clearingnummer');
+var CN = require('../src/clearingnummer.js');
 var SE = require('../src/swedish-bank-utils.js');
 var ACC = require('../src/swedish-account-formats.js');
 

@@ -1,5 +1,5 @@
 var test = require('tape');
-var CN = require('clearingnummer');
+var CN = require('../src/clearingnummer.js');
 var BankUtils = require('../src/unified-bank-utils.js');
 
 test('Dependency - clearing number validation (SE)', function (t){

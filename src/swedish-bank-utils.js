@@ -1,4 +1,4 @@
-var CN = require('clearingnummer');
+var CN = require('../src/clearingnummer.js');
 var accountFormats = require('../src/swedish-account-formats.js');
 
 /**

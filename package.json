@@ -20,9 +20,6 @@
     "url": "https://github.com/fohlin/unified-bank-utils/issues"
   },
   "homepage": "https://github.com/fohlin/unified-bank-utils#readme",
-  "dependencies": {
-    "clearingnummer": "^0.4.3"
-  },
   "devDependencies": {
     "eslint": "^4.5.0",
     "tap-prettify": "0.0.2",
