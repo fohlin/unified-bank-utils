@@ -174,30 +174,4 @@ SwedishBankAccount.prototype.validateAccountNumber = function () {
   return false;
 };
 
-/**
-* Tries to create a SwedishBankAccount object based on a string containing
-* both clearing and account numbers.
-* @param  {string} accountStr
-* @return {SwedishBankAccount}
-*/
-SwedishBankAccount.fromSingleString = function (accountStr) {
-  // TODO
-};
-
-/**
-* TODO: Generates PlusGiro-compatible account string
-* @return {string} - empty if invalid account
-*/
-// SwedishBankAccount.prototype.plusGiroString = function () {
-//   // TODO
-// };
-/**
-* TODO: Generates a Bankgiro-compatible account string
-* @return {string} - empty if invalid account
-*/
-// SwedishBankAccount.prototype.bankgiroString = function () {
-//   // TODO
-// };
-
-
 module.exports = SwedishBankUtils;
