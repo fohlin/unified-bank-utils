@@ -107,3 +107,13 @@ test('SE: Get and match specific account pattern based on clearing number', func
   });
   t.end();
 });
+
+test('SE: Ensure match for basic Swedbank clearing number', function (t) {
+  var match = SE.getAccountNumberFormats('8000');
+  if (match.length > 0) {
+    t.assert(match[0].name == 'Swedbank', 'Clearing 8000 is Swedbank');
+  } else {
+    t.fail('No matching formats for clearing 8000');
+  }
+  t.end();
+});

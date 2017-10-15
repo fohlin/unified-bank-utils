@@ -49,7 +49,8 @@ SwedishBankUtils.normalizeClearingNumber = function (clearingNumber) {
  */
 SwedishBankUtils.getAccountNumberFormats = function(clearingNumber) {
   var matching = accountFormats.filter(function (format) {
-    var toMatch = clearingNumber + new Array(format.lengths.account + 1).join('0');
+    var additionalClearingChars = format.lengths.clearing - clearingNumber.length > 0 ? format.lengths.clearing - clearingNumber.length : 0;
+    var toMatch = clearingNumber + new Array(format.lengths.account + additionalClearingChars + 1).join('0');
     if(toMatch.match(format.regex)) {
       return true;
     }
