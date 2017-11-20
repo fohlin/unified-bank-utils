@@ -149,7 +149,8 @@ SwedishBankAccount.prototype.validateClearingNumber = function () {
 * @return {boolean} - true if account number valid for this account's bank
 */
 SwedishBankAccount.prototype.validateAccountNumber = function () {
-  if (this.accountNumber) {
+  // All valid account numbers are 7 or more characters long
+  if (this.accountNumber && this.accountNumber.length >= 7) {
     if (this.validateClearingNumber()) {
       // Get all known accountFormats that match this bank
       var matching = accountFormats.filter(function (bank) {

@@ -26,6 +26,10 @@ var invalidTestAccounts = [
   {'clearing': '4051', 'account': '00716917u', 'bank': 'Nordea'},
   {'clearing': '3300c', 'account': '8112189876', 'bank': 'Nordea Personkonto'}
 ];
+var partiallyValidAccounts = [
+  {'clearing': '1300', 'account': '3', 'bank': 'Danske Bank'},
+  {'clearing': '9300', 'account': '24', 'bank': 'Swedbank'}
+];
 
 test('SE: Clearing number lookup and validation', function (t) {
   t.equals(SE.getBankName(9270), 'ICA Banken', 'Clearing 9270 is ICA Banken');
@@ -92,6 +96,10 @@ test('SE: Invalid accounts should be invalid', function (t) {
   invalidTestAccounts.forEach(function (testData) {
     var a = SE.account(testData.clearing, testData.account);
     t.assert(!a.isValid(), a.unifiedAccountString() + ' should be invalid account');
+  });
+  partiallyValidAccounts.forEach(function (testData) {
+    var a = SE.account(testData.clearing, testData.account);
+    t.assert(!a.validateAccountNumber(), a.unifiedAccountString() + ' should be invalid account');
   });
   t.end();
 });
