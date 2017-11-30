@@ -49,10 +49,12 @@ SwedishBankUtils.normalizeClearingNumber = function (clearingNumber) {
  */
 SwedishBankUtils.getAccountNumberFormats = function(clearingNumber) {
   var matching = accountFormats.filter(function (format) {
-    var additionalClearingChars = format.lengths.clearing - clearingNumber.length > 0 ? format.lengths.clearing - clearingNumber.length : 0;
-    var toMatch = clearingNumber + new Array(format.lengths.account + additionalClearingChars + 1).join('0');
-    if(toMatch.match(format.regex)) {
-      return true;
+    if (clearingNumber.length == format.lengths.clearing) {
+      var additionalClearingChars = format.lengths.clearing - clearingNumber.length > 0 ? format.lengths.clearing - clearingNumber.length : 0;
+      var toMatch = clearingNumber + new Array(format.lengths.account + additionalClearingChars + 1).join('0');
+      if(toMatch.match(format.regex)) {
+        return true;
+      }
     }
     return false;
   });

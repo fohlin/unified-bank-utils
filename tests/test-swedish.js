@@ -25,7 +25,8 @@ var invalidTestAccounts = [
   {'clearing': '4051', 'account': '00716917', 'bank': 'Nordea'},
   {'clearing': '4051', 'account': '00716917u', 'bank': 'Nordea'},
   {'clearing': '3300c', 'account': '8112189876', 'bank': 'Nordea Personkonto'},
-  {'clearing': '8000', 'account': '332452515', 'bank': 'Swedbank'}
+  {'clearing': '8000', 'account': '332452515', 'bank': 'Swedbank'},
+  {'clearing': '8299', 'account': '2814958514', 'bank': 'Swedbank'}
 ];
 var partiallyValidAccounts = [
   {'clearing': '1300', 'account': '3', 'bank': 'Danske Bank'},
@@ -117,12 +118,8 @@ test('SE: Get and match specific account pattern based on clearing number', func
   t.end();
 });
 
-test('SE: Ensure match for basic Swedbank clearing number', function (t) {
+test('SE: Ensure NO match for four-digit Swedbank clearing number in 8000-range', function (t) {
   var match = SE.getAccountNumberFormats('8000');
-  if (match.length > 0) {
-    t.assert(match[0].name == 'Swedbank', 'Clearing 8000 is Swedbank');
-  } else {
-    t.fail('No matching formats for clearing 8000');
-  }
+  t.assert(match.length == 0, 'Clearing 8000 is not complete, 5 digits required');
   t.end();
 });
