@@ -15,12 +15,16 @@ var SwedishBankUtils = {};
 */
 SwedishBankUtils.getBankName = function (clearingNumber) {
   var clearingStr = SwedishBankUtils.normalizeClearingNumber(clearingNumber);
-  // For five-digit variants, clearingnummer.js requires hyphen between fourth
-  // and fifth characters. 
-  if (clearingStr.length > 4) {
-    clearingStr = clearingStr.substring(0, 4) + '-' + clearingStr.substring(4);
+  if (SwedishBankUtils.getAccountNumberFormats(clearingStr).length > 0) {
+    // For five-digit variants, clearingnummer.js requires hyphen between fourth
+    // and fifth characters.
+    if (clearingStr.length > 4) {
+      clearingStr = clearingStr.substring(0, 4) + '-' + clearingStr.substring(4);
+    }
+    return CN.bankName(clearingStr);
   }
-  return CN.bankName(clearingStr);
+  // clearingnummer.js return empty string for no match
+  return '';
 };
 
 /**

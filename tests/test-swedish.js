@@ -121,5 +121,6 @@ test('SE: Get and match specific account pattern based on clearing number', func
 test('SE: Ensure NO match for four-digit Swedbank clearing number in 8000-range', function (t) {
   var match = SE.getAccountNumberFormats('8000');
   t.assert(match.length == 0, 'Clearing 8000 is not complete, 5 digits required');
+  t.assert(SE.getBankName('8000') == '', 'Clearing 8000 is not complete, 5 digits required');
   t.end();
 });
