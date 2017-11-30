@@ -1,6 +1,6 @@
 {
   "name": "unified-bank-utils",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A unified API for looking up and validating bank account details.",
   "main": "src/unified-bank-utils.js",
   "scripts": {
