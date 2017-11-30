@@ -24,7 +24,8 @@ var invalidTestAccounts = [
   {'clearing': '902', 'account': '6886413', 'bank': 'Länsförsäkringar Bank'},
   {'clearing': '4051', 'account': '00716917', 'bank': 'Nordea'},
   {'clearing': '4051', 'account': '00716917u', 'bank': 'Nordea'},
-  {'clearing': '3300c', 'account': '8112189876', 'bank': 'Nordea Personkonto'}
+  {'clearing': '3300c', 'account': '8112189876', 'bank': 'Nordea Personkonto'},
+  {'clearing': '8000', 'account': '332452515', 'bank': 'Swedbank'}
 ];
 var partiallyValidAccounts = [
   {'clearing': '1300', 'account': '3', 'bank': 'Danske Bank'},

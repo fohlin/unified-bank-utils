@@ -165,9 +165,9 @@ SwedishBankAccount.prototype.validateAccountNumber = function () {
       for(var i = 0; i < matching.length; i++) {
         b = matching[i];
         cn = n.substr(-b.lengths.control, b.lengths.control);
-        //console.log('Account: ' + this.clearingNumber + ' ' + this.accountNumber + '...Trying to match with mod: ' + matching[i].modulus);
-        if ((matching[i].modulus === 11 && SwedishBankUtils._mod11(cn))
-          || (matching[i].modulus === 10 && SwedishBankUtils._mod10(cn))) {
+        if (b.regex.test(n) &&
+           ((b.modulus === 11 && SwedishBankUtils._mod11(cn)) ||
+            (b.modulus === 10 && SwedishBankUtils._mod10(cn)))) {
           return true;
         }
       }
