@@ -529,9 +529,6 @@ module.exports = [{
     min: '8381-6',
     max: '8381-6'
   }, {
-    min: '8388-1',
-    max: '8388-1'
-  }, {
     min: '8393-1',
     max: '8393-1'
   }, {
@@ -651,6 +648,12 @@ module.exports = [{
   ranges: [{
     min: '8158-8',
     max: '8158-8'
+  }]
+}, {
+  bank: 'Varbergs sparbank',
+  ranges: [{
+    min: '8388-1',
+    max: '8388-1'
   }]
 }, {
   bank: 'Ålandsbanken',

@@ -125,8 +125,8 @@ test('SE: Ensure NO match for four-digit Swedbank clearing number in 8000-range'
   t.end();
 });
 
-test('SE: Problematic Swedbank clearing numbers', function(t) {
+test('SE: Problematic Swedbank branches clearing numbers', function(t) {
   var c = '83881';
-  t.equals(SE.getBankName(c), 'Swedbank', 'Clearing 83881 should be Swedbank');
+  t.equals(SE.getBankName(c), 'Varbergs sparbank', 'Clearing 83881 should be Varbergs sparbank');
   t.end();
 });
