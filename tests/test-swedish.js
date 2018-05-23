@@ -43,7 +43,7 @@ test('SE: Clearing number lookup and validation', function (t) {
   t.equals(SE.getBankName(82990), 'Swedbank', 'Clearing 82990 (int) is Swedbank');
   t.equals(SE.getBankName('8299-0'), 'Swedbank', 'Clearing 8299-0 (str) is Swedbank');
   t.equals(SE.getBankName('8299 0'), 'Swedbank', 'Clearing 8299 0 (str) is Swedbank');
-  
+
   t.end();
 });
 
@@ -122,5 +122,11 @@ test('SE: Ensure NO match for four-digit Swedbank clearing number in 8000-range'
   var match = SE.getAccountNumberFormats('8000');
   t.assert(match.length == 0, 'Clearing 8000 is not complete, 5 digits required');
   t.assert(SE.getBankName('8000') == '', 'Clearing 8000 is not complete, 5 digits required');
+  t.end();
+});
+
+test('SE: Problematic Swedbank clearing numbers', function(t) {
+  var c = '83881';
+  t.equals(SE.getBankName(c), 'Swedbank', 'Clearing 83881 should be Swedbank');
   t.end();
 });
