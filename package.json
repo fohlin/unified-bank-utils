@@ -1,9 +1,10 @@
 {
   "name": "unified-bank-utils",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "A unified API for looking up and validating bank account details.",
   "main": "src/unified-bank-utils.js",
   "scripts": {
+    "build:lib": "webpack --output-library BankUtils --output-library-target window",
     "test": "tape tests/*.js"
   },
   "repository": {
@@ -23,6 +24,8 @@
   "devDependencies": {
     "eslint": "^4.12.1",
     "eslint-plugin-es5": "^1.1.0",
-    "tape": "^4.8.0"
+    "tape": "^4.8.0",
+    "webpack": "^4.10.2",
+    "webpack-cli": "^3.0.1"
   }
 }

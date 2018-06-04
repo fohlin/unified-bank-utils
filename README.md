@@ -1,6 +1,6 @@
 # unified-bank-utils
 
-A unified API for looking up and validating bank account details. There are a 
+A unified API for looking up and validating bank account details. There are a
 lot of initiatives in this space, and a goal of this project is to provide
 curated and simple-as-possible use.
 
@@ -23,6 +23,10 @@ account.isValid() // true - since both of the above are true
 BankUtils.SE.getBankName('5177') // 'SEB'
 BankUtils.SE.getBankName('8299-0') // 'Swedbank'
 ```
+
+## Library build
+
+Please see the `dist` directory for a version of this project built as a standalone library, ready for execution in the browser. Note that it adds a global object `window.BankUtils`, and that the file is not minimized.
 
 ## Tests
 
