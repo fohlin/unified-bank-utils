@@ -173,7 +173,8 @@ SwedishBankAccount.prototype.validateAccountNumber = function () {
         cn = n.substr(-b.lengths.control, b.lengths.control);
         if (b.regex.test(n) &&
            ((b.modulus === 11 && SwedishBankUtils._mod11(cn)) ||
-            (b.modulus === 10 && SwedishBankUtils._mod10(cn)))) {
+            (b.modulus === 10 && SwedishBankUtils._mod10(cn))) ||
+            b.modulus === false) {
           return true;
         }
       }
