@@ -466,12 +466,22 @@ module.exports = [
   },
   {
     name: 'Swedbank',
-    regex: /^(8[0-9]{4})([0-9]{10})$/,
+    regex: /^(?!83881)(8[0-9]{4})([0-9]{10})$/,
     modulus: 10,
     lengths: {
       clearing: 5,
       account:  10,
       control:  10
+    }
+  },
+  {
+    name: 'Varbergs sparbank',
+    regex: /^(83881)([0-9]{10})$/,
+    modulus: false, // Skip modulus validation
+    lengths: {
+      clearing: 5,
+      account: 10,
+      control: 11
     }
   },
   {
@@ -1388,7 +1398,8 @@ SwedishBankAccount.prototype.validateAccountNumber = function () {
         cn = n.substr(-b.lengths.control, b.lengths.control);
         if (b.regex.test(n) &&
            ((b.modulus === 11 && SwedishBankUtils._mod11(cn)) ||
-            (b.modulus === 10 && SwedishBankUtils._mod10(cn)))) {
+            (b.modulus === 10 && SwedishBankUtils._mod10(cn))) ||
+            b.modulus === false) {
           return true;
         }
       }
