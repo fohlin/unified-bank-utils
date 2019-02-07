@@ -83,421 +83,267 @@ window["BankUtils"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-/* This file is adapted from Jonas Persson's `kontonummer.js` project,
- * available with MIT license at https://github.com/jop-io/kontonummer.js.
- */
-module.exports = [
-  {
-    name: 'Avanza Bank',
-    regex: /^(95[5-6][0-9])([0-9]{7})$/,
-    modulus: 11,
-    lengths: {
-      clearing: 4,
-      account:  7,
-      control:  11
-    }
-  },
-  {
-    name: 'Amfa Bank',
-    regex: /^(966[0-9])([0-9]{7})$/,
-    modulus: 11,
-    lengths: {
-      clearing: 4,
-      account:  7,
-      control:  10
-    }
-  },
-  {
-    name: 'Bluestep Finans',
-    regex: /^(968[0-9])([0-9]{7})$/,
-    modulus: 11,
-    lengths: {
-      clearing: 4,
-      account:  7,
-      control:  10
-    }
-  },
-  {
-    name: 'Fortis Bank',
-    regex: /^(947[0-9])([0-9]{7})$/,
-    modulus: 11,
-    lengths: {
-      clearing: 4,
-      account:  7,
-      control:  11
-    }
-  },
-  {
-    name: 'Citibank',
-    regex: /^(904[0-9])([0-9]{7})$/,
-    modulus: 11,
-    lengths: {
-      clearing: 4,
-      account:  7,
-      control:  11
-    }
-  },
-  {
-    name: 'Danske Bank',
-    regex: /^(1[2-3][0-9][0-9]|24[0-9][0-9])([0-9]{7})$/,
-    modulus: 11,
-    lengths: {
-      clearing: 4,
-      account:  7,
-      control:  10
-    }
-  },
-  {
-    name: 'Danske Bank',
-    regex: /^(918[0-9])([0-9]{10})$/,
-    modulus: 10,
-    lengths: {
-      clearing: 4,
-      account:  10,
-      control:  10
-    }
-  },
-  {
-    name: 'DNB Bank',
-    regex: /^(919[0-9]|926[0-9])([0-9]{7})$/,
-    modulus: 11,
-    lengths: {
-      clearing: 4,
-      account:  7,
-      control:  11
-    }
-  },
-  {
-    name: 'Ekobanken',
-    regex: /^(970[0-9])([0-9]{8})$/,
-    modulus: 11,
-    lengths: {
-      clearing: 4,
-      account:  7,
-      control:  11
-    }
-  },
-  {
-    name: 'Erik Penser Bankaktiebolag',
-    regex: /^(959[0-9])([0-9]{7})$/,
-    modulus: 11,
-    lengths: {
-      clearing: 4,
-      account:  7,
-      control:  11
-    }
-  },
-  {
-    name: 'Forex Bank',
-    regex: /^(94[0-4][0-9])([0-9]{7})$/,
-    modulus: 11,
-    lengths: {
-      clearing: 4,
-      account:  7,
-      control:  10
-    }
-  },
-  {
-    name: 'Handelsbanken',
-    regex: /^(6[0-9][0-9][0-9])([0-9]{9})$/,
-    modulus: 11,
-    lengths: {
-      clearing: 4,
-      account:  9,
-      control:  9
-    }
-  },
-  {
-    name: 'ICA Banken',
-    regex: /^(927[0-9])([0-9]{7})$/,
-    modulus: 11,
-    lengths: {
-      clearing: 4,
-      account:  7,
-      control:  10
-    }
-  },
-  {
-    name: 'Ikano Bank',
-    regex: /^(917[0-9])([0-9]{7})$/,
-    modulus: 11,
-    lengths: {
-      clearing: 4,
-      account:  7,
-      control:  10
-    }
-  },
-  {
-    name: 'JAK Medlemsbank',
-    regex: /^(967[0-9])([0-9]{8})$/,
-    modulus: 11,
-    lengths: {
-      clearing: 4,
-      account:  7,
-      control:  11
-    }
-  },
-  {
-    name: 'Landshypotek Bank',
-    regex: /^(939[0-9])([0-9]{7})$/,
-    modulus: 11,
-    lengths: {
-      clearing: 4,
-      account:  7,
-      control:  11
-    }
-  },
-  {
-    name: 'Lån & Spar Bank',
-    regex: /^(963[0-9])([0-9]{7})$/,
-    modulus: 11,
-    lengths: {
-      clearing: 4,
-      account:  7,
-      control:  10
-    }
-  },
-  {
-    name: 'Länsförsäkringar Bank',
-    regex: /^(340[0-9]|906[0-9])([0-9]{7})$/,
-    modulus: 11,
-    lengths: {
-      clearing: 4,
-      account:  7,
-      control:  10
-    }
-  },
-  {
-    name: 'Länsförsäkringar Bank',
-    regex: /^(902[0-9])([0-9]{7})$/,
-    modulus: 11,
-    lengths: {
-      clearing: 4,
-      account:  7,
-      control:  11
-    }
-  },
-  {
-    name: 'Marginalen Bank',
-    regex: /^(923[0-9])([0-9]{7})$/,
-    modulus: 11,
-    lengths: {
-      clearing: 4,
-      account:  7,
-      control:  10
-    }
-  },
-  {
-    name: 'Nordax Finans',
-    regex: /^(964[0-9])([0-9]{7})$/,
-    modulus: 11,
-    lengths: {
-      clearing: 4,
-      account:  7,
-      control:  11
-    }
-  },
-  {
-    name: 'Nordea',
-    regex: /^(?!3782|11[0-9][0-9]|1[4-9][0-9][0-9]|20[0-9][0-9]|30[0-9][0-9]|330[1-9]|33[1-9][0-9]|34[1-9][0-9]|3[5-9][0-9][0-9])([0-9]{7})$/,
-    modulus: 11,
-    lengths: {
-      clearing: 4,
-      account:  7,
-      control:  10
-    }
-  },
-  {
-    name: 'Nordea',
-    regex: /^(4[0-9][0-9][0-9])([0-9]{7})$/,
-    modulus: 11,
-    lengths: {
-      clearing: 4,
-      account:  7,
-      control:  11
-    }
-  },
-  {
-    name: 'Nordea Personkonto',
-    regex: /^(3300|3782)([0-9]{10})$/,
-    modulus: 10,
-    lengths: {
-      clearing: 4,
-      account:  10,
-      control:  10
-    }
-  },
-  {
-    name: 'Nordea',
-    regex: /^([0-9][0-9])(0[1-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])([0-9]{4})$/,
-    modulus: 10,
-    lengths: {
-      clearing: 0,
-      account:  10,
-      control:  10
-    }
-  },
-  {
-    name: 'Nordea',
-    regex: /^(95[0-4][0-9]|996[0-9])([0-9]{10})$/,
-    modulus: 10,
-    lengths: {
-      clearing: 0,
-      account:  10,
-      control:  10
-    }
-  },
-  {
-    name: 'Nordnet Bank',
-    regex: /^(910[0-9])([0-9]{7})$/,
-    modulus: 11,
-    lengths: {
-      clearing: 4,
-      account:  7,
-      control:  11
-    }
-  },
-  {
-    name: 'Resurs Bank',
-    regex: /^(928[0-9])([0-9]{7})$/,
-    modulus: 11,
-    lengths: {
-      clearing: 4,
-      account:  7,
-      control:  10
-    }
-  },
-  {
-    name: 'Riksgälden',
-    regex: /^(989[0-9])([0-9]{10})$/,
-    modulus: 10,
-    lengths: {
-      clearing: 4,
-      account:  10,
-      control:  10
-    }
-  },
-  {
-    name: 'Royal Bank of Scotland',
-    regex: /^(909[0-9])([0-9]{7})$/,
-    modulus: 11,
-    lengths: {
-      clearing: 4,
-      account:  7,
-      control:  11
-    }
-  },
-  {
-    name: 'Santander Consumer Bank',
-    regex: /^(946[0-9])([0-9]{7})$/,
-    modulus: 11,
-    lengths: {
-      clearing: 4,
-      account:  7,
-      control:  10
-    }
-  },
-  {
-    name: 'SBAB Bank',
-    regex: /^(925[0-9])([0-9]{7})$/,
-    modulus: 11,
-    lengths: {
-      clearing: 4,
-      account:  7,
-      control:  10
-    }
-  },
-  {
-    name: 'SEB',
-    regex: /^(5[0-9][0-9][0-9]|912[0-4]|91[3-4][0-9])([0-9]{7})$/,
-    modulus: 11,
-    lengths: {
-      clearing: 4,
-      account:  7,
-      control:  10
-    }
-  },
-  {
-    name: 'Skandiabanken',
-    regex: /^(91[5-6][0-9])([0-9]{7})$/,
-    modulus: 11,
-    lengths: {
-      clearing: 4,
-      account:  7,
-      control:  11
-    }
-  },
-  {
-    name: 'Sparbanken Syd',
-    regex: /^(957[0-9])([0-9]{10})$/,
-    modulus: 10,
-    lengths: {
-      clearing: 4,
-      account:  10,
-      control:  10
-    }
-  },
-  {
-    name: 'Swedbank',
-    regex: /^(7[0-9][0-9][0-9])([0-9]{7})$/,
-    modulus: 11,
-    lengths: {
-      clearing: 4,
-      account:  7,
-      control:  10
-    }
-  },
-  {
-    name: 'Swedbank',
-    regex: /^(93[0-2][0-9])([0-9]{10})$/,
-    modulus: 10,
-    lengths: {
-      clearing: 4,
-      account:  10,
-      control:  10
-    }
-  },
-  {
-    name: 'Swedbank',
-    regex: /^(?!83881)(8[0-9]{4})([0-9]{10})$/,
-    modulus: 10,
-    lengths: {
-      clearing: 5,
-      account:  10,
-      control:  10
-    }
-  },
-  {
-    name: 'Varbergs sparbank',
-    regex: /^(83881)([0-9]{10})$/,
-    modulus: false, // Skip modulus validation
-    lengths: {
-      clearing: 5,
-      account: 10,
-      control: 11
-    }
-  },
-  {
-    name: 'Ålandsbanken',
-    regex: /^(23[0-9][0-9])([0-9]{7})$/,
-    modulus: 11,
-    lengths: {
-      clearing: 4,
-      account:  7,
-      control:  11
-    }
-  }
-];
+var SE = __webpack_require__(1);
+
+var BankUtils = {
+  'SE': SE
+};
+
+module.exports = BankUtils;
 
 /***/ }),
 /* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var CN = __webpack_require__(2);
+var accountFormats = __webpack_require__(4);
+
+/**
+* Main set of features for the Swedish locale.
+*/
+var SwedishBankUtils = {};
+/**
+* Looks up and returns the bank that corresponds to the supplied clearing number.
+* Tries to normalize the clearing number when passed as a string. This means that
+* `82990`, `'8299-0'` and `8299 0` will all be valid, although four digit
+* clearing numbers are the most common.
+* @param  {number|string} clearingNumber
+* @return {string} - name of corresponding bank, empty if no match
+*/
+SwedishBankUtils.getBankName = function (clearingNumber) {
+  var clearingStr = SwedishBankUtils.normalizeClearingNumber(clearingNumber);
+  if (SwedishBankUtils.getAccountNumberFormats(clearingStr).length > 0) {
+    // For five-digit variants, clearingnummer.js requires hyphen between fourth
+    // and fifth characters.
+    if (clearingStr.length > 4) {
+      clearingStr = clearingStr.substring(0, 4) + '-' + clearingStr.substring(4);
+    }
+    return CN.bankName(clearingStr);
+  }
+  // clearingnummer.js return empty string for no match
+  return '';
+};
+
+/**
+* @param  {number|string} clearingNumber
+* @return {string} - clearing number string with spaces and hyphens removed
+*/
+SwedishBankUtils.normalizeClearingNumber = function (clearingNumber) {
+  var clearingStr = clearingNumber + '';
+  return clearingStr.replace(/[- ]+/gi, '');
+};
+
+/**
+ * Looks up account format objects (typically one). Objects look like this:
+ * {
+ *   name: String,
+ *   regex: RegExp,
+ *   modulus: Number,
+ *   lengths: {
+ *     clearing: Number,
+ *     account:  Number,
+ *     control:  Number
+ *   }
+ * }
+ * @param  {number|string} clearingNumber
+ * @return {array} - account format entries, typically 0 or 1 objects
+ */
+SwedishBankUtils.getAccountNumberFormats = function(clearingNumber) {
+  var matching = accountFormats.filter(function (format) {
+    if (clearingNumber.length == format.lengths.clearing) {
+      var additionalClearingChars = format.lengths.clearing - clearingNumber.length > 0 ? format.lengths.clearing - clearingNumber.length : 0;
+      var toMatch = clearingNumber + new Array(format.lengths.account + additionalClearingChars + 1).join('0');
+      if(toMatch.match(format.regex)) {
+        return true;
+      }
+    }
+    return false;
+  });
+  return matching;
+};
+
+/**
+* @param  {number|string} clearingNumber
+* @param  {number|string} accountNumber
+* @param  {boolean} normalize - whether account object should store normalized data
+* @return {SwedishBankAccount}
+*/
+SwedishBankUtils.account = function (clearingNumber, accountNumber, normalize) {
+  normalize = normalize === undefined ? true : normalize;
+  return new SwedishBankAccount(clearingNumber, accountNumber, normalize);
+};
+
+/**
+* @param {string} accountNumber 
+* @returns {boolean}
+*/
+SwedishBankUtils._mod10 = function (accountNumber) {
+  var len = accountNumber.length, bit = 1, sum = 0, val, arr = [0, 2, 4, 6, 8, 1, 3, 5, 7, 9];
+  while (len) {
+    val = parseInt(accountNumber.charAt(--len), 10);
+    sum += (bit ^= 1) ? arr[val] : val;
+  }
+  return sum && sum % 10 === 0;
+};
+
+/**
+* @param {string} accountNumber
+* @returns {boolean}
+*/
+SwedishBankUtils._mod11 = function (accountNumber) {
+  var len = accountNumber.length, sum = 0, val, weights = [1, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
+  var arr = weights.splice(weights.length-len, weights.length-(weights.length-len));
+  while (len) {
+    val = parseInt(accountNumber.charAt(--len), 10);
+    sum += arr[len] * val;
+  }
+  return sum && sum % 11 === 0;
+};
+
+/* --- */
+
+/**
+* Represents a single Swedish bank account.
+* @param {number|string} clearingNumber 
+* @param {number|string} accountNumber 
+* @param {boolean} normalizeClearingNumber - whether clearing number should be stored normalized
+* 
+*/
+var SwedishBankAccount = function (clearingNumber, accountNumber, normalizeClearingNumber) {
+  normalizeClearingNumber = normalizeClearingNumber === undefined ? true : normalizeClearingNumber;
+  this.clearingNumber = normalizeClearingNumber ? SwedishBankUtils.normalizeClearingNumber(clearingNumber) : clearingNumber;
+  this.accountNumber = accountNumber;
+  this.bankName = '';
+};
+
+/**
+* Joins clearing and account numbers as a single string.
+* @return {string}
+*/
+SwedishBankAccount.prototype.unifiedAccountString = function () {
+  return this.clearingNumber && this.accountNumber ? this.clearingNumber + this.accountNumber + '' : '';
+};
+
+/**
+* Checks if both clearing and account numbers are valid.
+* @return {boolean} - true if valid, otherwise false
+*/
+SwedishBankAccount.prototype.isValid = function () {
+  this._isValid = this.validateClearingNumber() && this.validateAccountNumber();
+  return this._isValid;
+};
+
+/**
+* Validates clearing number. If valid, the `bankName` property is also updated.
+* @return {boolean} - true if valid, otherwise false
+*/
+SwedishBankAccount.prototype.validateClearingNumber = function () {
+  if (this.clearingNumber) {
+    var bankName = SwedishBankUtils.getBankName(this.clearingNumber);
+    if (bankName) {
+      this.bankName = bankName;
+      return true;
+    }
+  }
+  return false;
+};
+
+/**
+* @return {boolean} - true if account number valid for this account's bank
+*/
+SwedishBankAccount.prototype.validateAccountNumber = function () {
+  // All valid account numbers are 7 or more characters long
+  if (this.accountNumber && this.accountNumber.length >= 7) {
+    if (this.validateClearingNumber()) {
+      // Get all known accountFormats that match this bank
+      var matching = accountFormats.filter(function (bank) {
+        if (bank.name == this.bankName) {
+          return true;
+        }
+      }, this);
+      // Try to validate for each matching account format.
+      // The account format also determines what parts of the clearing+account
+      // string should be used.
+      var cn, b, n = this.unifiedAccountString();
+      for(var i = 0; i < matching.length; i++) {
+        b = matching[i];
+        cn = n.substr(-b.lengths.control, b.lengths.control);
+        if (b.regex.test(n) &&
+           ((b.modulus === 11 && SwedishBankUtils._mod11(cn)) ||
+            (b.modulus === 10 && SwedishBankUtils._mod10(cn))) ||
+            b.modulus === false) {
+          return true;
+        }
+      }
+    }
+  }
+  return false;
+};
+
+module.exports = SwedishBankUtils;
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* Build of https://github.com/believer/clearingnummer (0.4.4) */
+
+
+var banks = __webpack_require__(3);
+
+function bankName(number) {
+  var numberString = number.toString();
+
+  var found = banks.map(function (bank) {
+    var foundBank = bank.ranges.filter(function (range) {
+      var min = range.min.toString();
+      var max = range.max.toString();
+
+      if (min === numberString || max === numberString || number > range.min && number < range.max) {
+        return true;
+      }
+
+      return false;
+    });
+
+    if (foundBank.length) {
+      return bank;
+    }
+  }).filter(Boolean);
+
+  return found.length ? found[0].bank : '';
+}
+
+function clearingNumbers(bankName) {
+  var bank = banks.filter(function (bank) {
+    return bank.bank === bankName;
+  });
+
+  return bank.length ? bank[0].ranges : [];
+}
+
+function allBanks() {
+  return banks.map(function (bank) {
+    return bank.bank;
+  });
+}
+
+module.exports = {
+  bankName: bankName,
+  clearingNumbers: clearingNumbers,
+  allBanks: allBanks
+};
+
+/***/ }),
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1167,260 +1013,414 @@ module.exports = [{
 }];
 
 /***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* Build of https://github.com/believer/clearingnummer (0.4.4) */
-
-
-var banks = __webpack_require__(1);
-
-function bankName(number) {
-  var numberString = number.toString();
-
-  var found = banks.map(function (bank) {
-    var foundBank = bank.ranges.filter(function (range) {
-      var min = range.min.toString();
-      var max = range.max.toString();
-
-      if (min === numberString || max === numberString || number > range.min && number < range.max) {
-        return true;
-      }
-
-      return false;
-    });
-
-    if (foundBank.length) {
-      return bank;
-    }
-  }).filter(Boolean);
-
-  return found.length ? found[0].bank : '';
-}
-
-function clearingNumbers(bankName) {
-  var bank = banks.filter(function (bank) {
-    return bank.bank === bankName;
-  });
-
-  return bank.length ? bank[0].ranges : [];
-}
-
-function allBanks() {
-  return banks.map(function (bank) {
-    return bank.bank;
-  });
-}
-
-module.exports = {
-  bankName: bankName,
-  clearingNumbers: clearingNumbers,
-  allBanks: allBanks
-};
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var CN = __webpack_require__(2);
-var accountFormats = __webpack_require__(0);
-
-/**
-* Main set of features for the Swedish locale.
-*/
-var SwedishBankUtils = {};
-/**
-* Looks up and returns the bank that corresponds to the supplied clearing number.
-* Tries to normalize the clearing number when passed as a string. This means that
-* `82990`, `'8299-0'` and `8299 0` will all be valid, although four digit
-* clearing numbers are the most common.
-* @param  {number|string} clearingNumber
-* @return {string} - name of corresponding bank, empty if no match
-*/
-SwedishBankUtils.getBankName = function (clearingNumber) {
-  var clearingStr = SwedishBankUtils.normalizeClearingNumber(clearingNumber);
-  if (SwedishBankUtils.getAccountNumberFormats(clearingStr).length > 0) {
-    // For five-digit variants, clearingnummer.js requires hyphen between fourth
-    // and fifth characters.
-    if (clearingStr.length > 4) {
-      clearingStr = clearingStr.substring(0, 4) + '-' + clearingStr.substring(4);
-    }
-    return CN.bankName(clearingStr);
-  }
-  // clearingnummer.js return empty string for no match
-  return '';
-};
-
-/**
-* @param  {number|string} clearingNumber
-* @return {string} - clearing number string with spaces and hyphens removed
-*/
-SwedishBankUtils.normalizeClearingNumber = function (clearingNumber) {
-  var clearingStr = clearingNumber + '';
-  return clearingStr.replace(/[- ]+/gi, '');
-};
-
-/**
- * Looks up account format objects (typically one). Objects look like this:
- * {
- *   name: String,
- *   regex: RegExp,
- *   modulus: Number,
- *   lengths: {
- *     clearing: Number,
- *     account:  Number,
- *     control:  Number
- *   }
- * }
- * @param  {number|string} clearingNumber
- * @return {array} - account format entries, typically 0 or 1 objects
- */
-SwedishBankUtils.getAccountNumberFormats = function(clearingNumber) {
-  var matching = accountFormats.filter(function (format) {
-    if (clearingNumber.length == format.lengths.clearing) {
-      var additionalClearingChars = format.lengths.clearing - clearingNumber.length > 0 ? format.lengths.clearing - clearingNumber.length : 0;
-      var toMatch = clearingNumber + new Array(format.lengths.account + additionalClearingChars + 1).join('0');
-      if(toMatch.match(format.regex)) {
-        return true;
-      }
-    }
-    return false;
-  });
-  return matching;
-};
-
-/**
-* @param  {number|string} clearingNumber
-* @param  {number|string} accountNumber
-* @param  {boolean} normalize - whether account object should store normalized data
-* @return {SwedishBankAccount}
-*/
-SwedishBankUtils.account = function (clearingNumber, accountNumber, normalize) {
-  normalize = normalize === undefined ? true : normalize;
-  return new SwedishBankAccount(clearingNumber, accountNumber, normalize);
-};
-
-/**
-* @param {string} accountNumber 
-* @returns {boolean}
-*/
-SwedishBankUtils._mod10 = function (accountNumber) {
-  var len = accountNumber.length, bit = 1, sum = 0, val, arr = [0, 2, 4, 6, 8, 1, 3, 5, 7, 9];
-  while (len) {
-    val = parseInt(accountNumber.charAt(--len), 10);
-    sum += (bit ^= 1) ? arr[val] : val;
-  }
-  return sum && sum % 10 === 0;
-};
-
-/**
-* @param {string} accountNumber
-* @returns {boolean}
-*/
-SwedishBankUtils._mod11 = function (accountNumber) {
-  var len = accountNumber.length, sum = 0, val, weights = [1, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
-  var arr = weights.splice(weights.length-len, weights.length-(weights.length-len));
-  while (len) {
-    val = parseInt(accountNumber.charAt(--len), 10);
-    sum += arr[len] * val;
-  }
-  return sum && sum % 11 === 0;
-};
-
-/* --- */
-
-/**
-* Represents a single Swedish bank account.
-* @param {number|string} clearingNumber 
-* @param {number|string} accountNumber 
-* @param {boolean} normalizeClearingNumber - whether clearing number should be stored normalized
-* 
-*/
-var SwedishBankAccount = function (clearingNumber, accountNumber, normalizeClearingNumber) {
-  normalizeClearingNumber = normalizeClearingNumber === undefined ? true : normalizeClearingNumber;
-  this.clearingNumber = normalizeClearingNumber ? SwedishBankUtils.normalizeClearingNumber(clearingNumber) : clearingNumber;
-  this.accountNumber = accountNumber;
-  this.bankName = '';
-};
-
-/**
-* Joins clearing and account numbers as a single string.
-* @return {string}
-*/
-SwedishBankAccount.prototype.unifiedAccountString = function () {
-  return this.clearingNumber && this.accountNumber ? this.clearingNumber + this.accountNumber + '' : '';
-};
-
-/**
-* Checks if both clearing and account numbers are valid.
-* @return {boolean} - true if valid, otherwise false
-*/
-SwedishBankAccount.prototype.isValid = function () {
-  this._isValid = this.validateClearingNumber() && this.validateAccountNumber();
-  return this._isValid;
-};
-
-/**
-* Validates clearing number. If valid, the `bankName` property is also updated.
-* @return {boolean} - true if valid, otherwise false
-*/
-SwedishBankAccount.prototype.validateClearingNumber = function () {
-  if (this.clearingNumber) {
-    var bankName = SwedishBankUtils.getBankName(this.clearingNumber);
-    if (bankName) {
-      this.bankName = bankName;
-      return true;
-    }
-  }
-  return false;
-};
-
-/**
-* @return {boolean} - true if account number valid for this account's bank
-*/
-SwedishBankAccount.prototype.validateAccountNumber = function () {
-  // All valid account numbers are 7 or more characters long
-  if (this.accountNumber && this.accountNumber.length >= 7) {
-    if (this.validateClearingNumber()) {
-      // Get all known accountFormats that match this bank
-      var matching = accountFormats.filter(function (bank) {
-        if (bank.name == this.bankName) {
-          return true;
-        }
-      }, this);
-      // Try to validate for each matching account format.
-      // The account format also determines what parts of the clearing+account
-      // string should be used.
-      var cn, b, n = this.unifiedAccountString();
-      for(var i = 0; i < matching.length; i++) {
-        b = matching[i];
-        cn = n.substr(-b.lengths.control, b.lengths.control);
-        if (b.regex.test(n) &&
-           ((b.modulus === 11 && SwedishBankUtils._mod11(cn)) ||
-            (b.modulus === 10 && SwedishBankUtils._mod10(cn))) ||
-            b.modulus === false) {
-          return true;
-        }
-      }
-    }
-  }
-  return false;
-};
-
-module.exports = SwedishBankUtils;
-
-/***/ }),
 /* 4 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-var SE = __webpack_require__(3);
-
-var BankUtils = {
-  'SE': SE
-};
-
-module.exports = BankUtils;
+/* This file is adapted from Jonas Persson's `kontonummer.js` project,
+ * available with MIT license at https://github.com/jop-io/kontonummer.js.
+ */
+module.exports = [
+  {
+    name: 'Avanza Bank',
+    regex: /^(95[5-6][0-9])([0-9]{7})$/,
+    modulus: 11,
+    lengths: {
+      clearing: 4,
+      account:  7,
+      control:  11
+    }
+  },
+  {
+    name: 'Amfa Bank',
+    regex: /^(966[0-9])([0-9]{7})$/,
+    modulus: 11,
+    lengths: {
+      clearing: 4,
+      account:  7,
+      control:  10
+    }
+  },
+  {
+    name: 'Bluestep Finans',
+    regex: /^(968[0-9])([0-9]{7})$/,
+    modulus: 11,
+    lengths: {
+      clearing: 4,
+      account:  7,
+      control:  10
+    }
+  },
+  {
+    name: 'Fortis Bank',
+    regex: /^(947[0-9])([0-9]{7})$/,
+    modulus: 11,
+    lengths: {
+      clearing: 4,
+      account:  7,
+      control:  11
+    }
+  },
+  {
+    name: 'Citibank',
+    regex: /^(904[0-9])([0-9]{7})$/,
+    modulus: 11,
+    lengths: {
+      clearing: 4,
+      account:  7,
+      control:  11
+    }
+  },
+  {
+    name: 'Danske Bank',
+    regex: /^(1[2-3][0-9][0-9]|24[0-9][0-9])([0-9]{7})$/,
+    modulus: 11,
+    lengths: {
+      clearing: 4,
+      account:  7,
+      control:  10
+    }
+  },
+  {
+    name: 'Danske Bank',
+    regex: /^(918[0-9])([0-9]{10})$/,
+    modulus: 10,
+    lengths: {
+      clearing: 4,
+      account:  10,
+      control:  10
+    }
+  },
+  {
+    name: 'DNB Bank',
+    regex: /^(919[0-9]|926[0-9])([0-9]{7})$/,
+    modulus: 11,
+    lengths: {
+      clearing: 4,
+      account:  7,
+      control:  11
+    }
+  },
+  {
+    name: 'Ekobanken',
+    regex: /^(970[0-9])([0-9]{8})$/,
+    modulus: 11,
+    lengths: {
+      clearing: 4,
+      account:  7,
+      control:  11
+    }
+  },
+  {
+    name: 'Erik Penser Bankaktiebolag',
+    regex: /^(959[0-9])([0-9]{7})$/,
+    modulus: 11,
+    lengths: {
+      clearing: 4,
+      account:  7,
+      control:  11
+    }
+  },
+  {
+    name: 'Forex Bank',
+    regex: /^(94[0-4][0-9])([0-9]{7})$/,
+    modulus: 11,
+    lengths: {
+      clearing: 4,
+      account:  7,
+      control:  10
+    }
+  },
+  {
+    name: 'Handelsbanken',
+    regex: /^(6[0-9][0-9][0-9])([0-9]{9})$/,
+    modulus: 11,
+    lengths: {
+      clearing: 4,
+      account:  9,
+      control:  9
+    }
+  },
+  {
+    name: 'ICA Banken',
+    regex: /^(927[0-9])([0-9]{7})$/,
+    modulus: 11,
+    lengths: {
+      clearing: 4,
+      account:  7,
+      control:  10
+    }
+  },
+  {
+    name: 'Ikano Bank',
+    regex: /^(917[0-9])([0-9]{7})$/,
+    modulus: 11,
+    lengths: {
+      clearing: 4,
+      account:  7,
+      control:  10
+    }
+  },
+  {
+    name: 'JAK Medlemsbank',
+    regex: /^(967[0-9])([0-9]{8})$/,
+    modulus: 11,
+    lengths: {
+      clearing: 4,
+      account:  7,
+      control:  11
+    }
+  },
+  {
+    name: 'Landshypotek Bank',
+    regex: /^(939[0-9])([0-9]{7})$/,
+    modulus: 11,
+    lengths: {
+      clearing: 4,
+      account:  7,
+      control:  11
+    }
+  },
+  {
+    name: 'Lån & Spar Bank',
+    regex: /^(963[0-9])([0-9]{7})$/,
+    modulus: 11,
+    lengths: {
+      clearing: 4,
+      account:  7,
+      control:  10
+    }
+  },
+  {
+    name: 'Länsförsäkringar Bank',
+    regex: /^(340[0-9]|906[0-9])([0-9]{7})$/,
+    modulus: 11,
+    lengths: {
+      clearing: 4,
+      account:  7,
+      control:  10
+    }
+  },
+  {
+    name: 'Länsförsäkringar Bank',
+    regex: /^(902[0-9])([0-9]{7})$/,
+    modulus: 11,
+    lengths: {
+      clearing: 4,
+      account:  7,
+      control:  11
+    }
+  },
+  {
+    name: 'Marginalen Bank',
+    regex: /^(923[0-9])([0-9]{7})$/,
+    modulus: 11,
+    lengths: {
+      clearing: 4,
+      account:  7,
+      control:  10
+    }
+  },
+  {
+    name: 'Nordax Finans',
+    regex: /^(964[0-9])([0-9]{7})$/,
+    modulus: 11,
+    lengths: {
+      clearing: 4,
+      account:  7,
+      control:  11
+    }
+  },
+  {
+    name: 'Nordea',
+    regex: /^(?!3782|11[0-9][0-9]|1[4-9][0-9][0-9]|20[0-9][0-9]|30[0-9][0-9]|330[1-9]|33[1-9][0-9]|34[1-9][0-9]|3[5-9][0-9][0-9])([0-9]{7})$/,
+    modulus: 11,
+    lengths: {
+      clearing: 4,
+      account:  7,
+      control:  10
+    }
+  },
+  {
+    name: 'Nordea',
+    regex: /^(4[0-9][0-9][0-9])([0-9]{7})$/,
+    modulus: 11,
+    lengths: {
+      clearing: 4,
+      account:  7,
+      control:  11
+    }
+  },
+  {
+    name: 'Nordea Personkonto',
+    regex: /^(3300|3782)([0-9]{10})$/,
+    modulus: 10,
+    lengths: {
+      clearing: 4,
+      account:  10,
+      control:  10
+    }
+  },
+  {
+    name: 'Nordea',
+    regex: /^([0-9][0-9])(0[1-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])([0-9]{4})$/,
+    modulus: 10,
+    lengths: {
+      clearing: 0,
+      account:  10,
+      control:  10
+    }
+  },
+  {
+    name: 'Nordea',
+    regex: /^(95[0-4][0-9]|996[0-9])([0-9]{10})$/,
+    modulus: 10,
+    lengths: {
+      clearing: 0,
+      account:  10,
+      control:  10
+    }
+  },
+  {
+    name: 'Nordnet Bank',
+    regex: /^(910[0-9])([0-9]{7})$/,
+    modulus: 11,
+    lengths: {
+      clearing: 4,
+      account:  7,
+      control:  11
+    }
+  },
+  {
+    name: 'Resurs Bank',
+    regex: /^(928[0-9])([0-9]{7})$/,
+    modulus: 11,
+    lengths: {
+      clearing: 4,
+      account:  7,
+      control:  10
+    }
+  },
+  {
+    name: 'Riksgälden',
+    regex: /^(989[0-9])([0-9]{10})$/,
+    modulus: 10,
+    lengths: {
+      clearing: 4,
+      account:  10,
+      control:  10
+    }
+  },
+  {
+    name: 'Royal Bank of Scotland',
+    regex: /^(909[0-9])([0-9]{7})$/,
+    modulus: 11,
+    lengths: {
+      clearing: 4,
+      account:  7,
+      control:  11
+    }
+  },
+  {
+    name: 'Santander Consumer Bank',
+    regex: /^(946[0-9])([0-9]{7})$/,
+    modulus: 11,
+    lengths: {
+      clearing: 4,
+      account:  7,
+      control:  10
+    }
+  },
+  {
+    name: 'SBAB Bank',
+    regex: /^(925[0-9])([0-9]{7})$/,
+    modulus: 11,
+    lengths: {
+      clearing: 4,
+      account:  7,
+      control:  10
+    }
+  },
+  {
+    name: 'SEB',
+    regex: /^(5[0-9][0-9][0-9]|912[0-4]|91[3-4][0-9])([0-9]{7})$/,
+    modulus: 11,
+    lengths: {
+      clearing: 4,
+      account:  7,
+      control:  10
+    }
+  },
+  {
+    name: 'Skandiabanken',
+    regex: /^(91[5-6][0-9])([0-9]{7})$/,
+    modulus: 11,
+    lengths: {
+      clearing: 4,
+      account:  7,
+      control:  11
+    }
+  },
+  {
+    name: 'Sparbanken Syd',
+    regex: /^(957[0-9])([0-9]{10})$/,
+    modulus: 10,
+    lengths: {
+      clearing: 4,
+      account:  10,
+      control:  10
+    }
+  },
+  {
+    name: 'Swedbank',
+    regex: /^(7[0-9][0-9][0-9])([0-9]{7})$/,
+    modulus: 11,
+    lengths: {
+      clearing: 4,
+      account:  7,
+      control:  10
+    }
+  },
+  {
+    name: 'Swedbank',
+    regex: /^(93[0-2][0-9])([0-9]{10})$/,
+    modulus: 10,
+    lengths: {
+      clearing: 4,
+      account:  10,
+      control:  10
+    }
+  },
+  {
+    name: 'Swedbank',
+    regex: /^(?!83881)(8[0-9]{4})([0-9]{10})$/,
+    modulus: 10,
+    lengths: {
+      clearing: 5,
+      account:  10,
+      control:  10
+    }
+  },
+  {
+    name: 'Varbergs sparbank',
+    regex: /^(83881)([0-9]{10})$/,
+    modulus: false, // Skip modulus validation
+    lengths: {
+      clearing: 5,
+      account: 10,
+      control: 11
+    }
+  },
+  {
+    name: 'Ålandsbanken',
+    regex: /^(23[0-9][0-9])([0-9]{7})$/,
+    modulus: 11,
+    lengths: {
+      clearing: 4,
+      account:  7,
+      control:  11
+    }
+  }
+];
 
 /***/ })
 /******/ ]);
