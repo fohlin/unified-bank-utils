@@ -14,11 +14,11 @@ module.exports = [
   },
   {
     name: 'Amfa Bank',
-    regex: /^(966[0-9])([0-9]{7})$/,
+    regex: /^(966[0-9])([0-9]{8})$/,
     modulus: 11,
     lengths: {
       clearing: 4,
-      account:  7,
+      account:  8,
       control:  10
     }
   },
@@ -133,7 +133,7 @@ module.exports = [
     }
   },
   {
-    name: 'Ikano Bank',
+    name: 'IKANO Bank',
     regex: /^(917[0-9])([0-9]{7})$/,
     modulus: 11,
     lengths: {
@@ -153,7 +153,7 @@ module.exports = [
     }
   },
   {
-    name: 'Landshypotek Bank',
+    name: 'Landshypotek',
     regex: /^(939[0-9])([0-9]{7})$/,
     modulus: 11,
     lengths: {
@@ -293,7 +293,7 @@ module.exports = [
     }
   },
   {
-    name: 'Royal Bank of Scotland',
+    name: 'RBS',
     regex: /^(909[0-9])([0-9]{7})$/,
     modulus: 11,
     lengths: {
@@ -303,7 +303,7 @@ module.exports = [
     }
   },
   {
-    name: 'Santander Consumer Bank',
+    name: 'GE Money Bank',
     regex: /^(946[0-9])([0-9]{7})$/,
     modulus: 11,
     lengths: {
