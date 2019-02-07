@@ -1,4 +1,4 @@
-/*! unified-bank-utils, version 0.2.4 */
+/*! unified-bank-utils, version 0.2.5 */
 window["BankUtils"] =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
