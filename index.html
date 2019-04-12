@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>unified-bank-utils test</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdn.jsdelivr.net/gh/fohlin/unified-bank-utils/dist/unified-bank-utils-lib.js"></script>
+  <style>
+    label {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <h1>unified-bank-utils</a> test page</h1>
+  <p>
+    Enter bank details to test if it passes validation according to the
+    <a href="https://github.com/fohlin/unified-bank-utils" title="GitHub">unified-bank-utils</a> library.
+    <a href="https://github.com/fohlin/unified-bank-utils/blob/master/tests/test-swedish.js">Here is some example data</a>.
+  </p>
+  <div id="app"></div>
+
+  <script type="module">
+    import { h, app } from "https://unpkg.com/hyperapp?module"
+
+    const state = {
+      bankAccount: {
+        clearing: '',
+        account: '',
+      },
+      statusString: ''
+    }
+    const actions = {
+      // down: value => state => ({ count: state.count - value }),
+      // up: value => state => ({ count: state.count + value })
+      clearing: value => state => {
+        const bankAccount = {...state.bankAccount, clearing: value}
+        const { statusString } = actions.check(bankAccount);
+        return { bankAccount, statusString }
+      },
+      account: value => state => {
+        const bankAccount = { ...state.bankAccount, account: value}
+        const { statusString } = actions.check(bankAccount);
+        return { bankAccount, statusString }
+      },
+      check: bankAccount => {
+        const { 
+          getBankName,
+          normalizeClearingNumber,
+          getAccountNumberFormats,
+          account
+        } = window.BankUtils.SE;
+
+        // normalize = true
+        const parsedObj = account(bankAccount.clearing, bankAccount.account, true);
+        const format = getAccountNumberFormats(parsedObj.clearingNumber);
+        const f = format[0] || {};
+        const { lengths, modulus, regex } = f
+
+        const result = {
+          cnNormalized: parsedObj.clearingNumber,
+          cnValid: parsedObj.validateClearingNumber(),
+          accNormalized: parsedObj.accountNumber,
+          accValid: parsedObj.validateAccountNumber(),
+          valid: parsedObj.isValid(),
+          bankName: getBankName(parsedObj.clearingNumber),
+        }
+
+        return {
+          statusString: 
+`VALIDATION PASSED: ${result.valid}
+
+Clearing number: ${result.cnNormalized}
+  length: ${result.cnNormalized.length }
+  valid: ${result.cnValid}
+    bank name: ${result.bankName}
+Account number: ${result.accNormalized}
+  length: ${result.accNormalized.length }
+  valid: ${result.accValid}
+
+
+TEST DETAILS
+lengths: ${JSON.stringify(lengths) || '-' }
+test: ${regex || '-'}
+  passes: ${regex ? regex.test(result.cnNormalized + result.accNormalized) : '-'}
+check digit calculation: ${modulus ? 'mod_'+modulus : '-' }
+  passes: ${result.bankName ? result.accValid : '-'}
+`
+        }
+      }
+    }
+    const view = (state, actions) => {
+      return h("div", {}, [
+        h('label', { for: 'c'}, 'Clearing number'),
+        h('input', {
+          id: 'c',
+          oninput: (e) => { actions.clearing(e.srcElement.value) }
+        }),
+        h('label', { for: 'a'}, 'Account number'),
+        h('input', {
+          id: 'a',
+          oninput: (e) => { actions.account(e.srcElement.value) }
+        }),
+        h('pre', { className: 'output'}, state.statusString)
+      ])
+    }
+    window.BankUtils && app(state, actions, view, document.querySelector('#app'));
+  </script>
+</body>
+</html>
