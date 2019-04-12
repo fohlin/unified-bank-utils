@@ -374,7 +374,7 @@ module.exports = [
   },
   {
     name: 'Swedbank',
-    regex: /^(?!83881)(8[0-9]{4})([0-9]{10})$/,
+    regex: /^(?!83881|81646)(8[0-9]{4})([0-9]{10})$/,
     modulus: 10,
     lengths: {
       clearing: 5,
@@ -390,6 +390,16 @@ module.exports = [
       clearing: 5,
       account: 10,
       control: 11
+    }
+  },
+  {
+    name: 'Lekebergs sparbank',
+    regex: /^(81646)([0-9]{10})$/,
+    modulus: false, // Skip modulus validation
+    lengths: {
+      clearing: 5,
+      account: 10,
+      control: 10
     }
   },
   {
